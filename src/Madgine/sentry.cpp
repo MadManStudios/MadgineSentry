@@ -39,3 +39,10 @@ Engine::Sentry::~Sentry()
 {
     sentry_close();
 }
+
+void Engine::Sentry::sendMessage(std::string_view message)
+{
+    sentry_value_t event = sentry_value_new_message_event(SENTRY_LEVEL_INFO, "feedback", message.data());
+
+    sentry_capture_event(event);
+}

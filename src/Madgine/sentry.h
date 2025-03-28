@@ -12,6 +12,7 @@ namespace Engine {
 
         virtual std::string_view key() const override;
 
+        void sendMessage(std::string_view message);
         
     private:
     };
