@@ -500,7 +500,7 @@ if(SENTRY_BACKEND_CRASHPAD)
 		$<BUILD_INTERFACE:crashpad::client>
 		$<INSTALL_INTERFACE:sentry_crashpad::client>
 	)
-	install(EXPORT crashpad_export NAMESPACE sentry_crashpad:: FILE sentry_crashpad-targets.cmake
+	sentry_install(EXPORT crashpad_export NAMESPACE sentry_crashpad:: FILE sentry_crashpad-targets.cmake
 		DESTINATION "${CMAKE_INSTALL_CMAKEDIR}"
 	)
 	if(WIN32 AND MSVC)
