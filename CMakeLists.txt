@@ -13,7 +13,11 @@ add_plugin(Sentry Madgine Misc ${sources} PRECOMPILED_HEADER src/Madgine/sentryl
 
 target_link_plugins(Sentry Root)
 
-target_link_libraries(Sentry PRIVATE sentry::sentry)
+if (NOT EMSCRIPTEN)
+	target_link_libraries(Sentry PRIVATE sentry::sentry)
+else()
+	target_link_libraries(Sentry INTERFACE "--pre-js ${CMAKE_CURRENT_SOURCE_DIR}/js/header.js")
+endif()
 
 set(sources)
 FolderSources(sources "" tools)
