@@ -167,7 +167,7 @@ window.sentryOnLoad = function () {
     Sentry.init(
         {
             sendDefaultPii: !0,
-            release: "my-project-name@2.3.12",
+            release: "Madgine@@MADGINE_VERSION@",
             integrations: [wasmIntegration()],
         })
 }

@@ -13,10 +13,13 @@ add_plugin(Sentry Madgine Misc ${sources} PRECOMPILED_HEADER src/Madgine/sentryl
 
 target_link_plugins(Sentry Root)
 
-if (NOT EMSCRIPTEN)
+target_compile_definitions(Sentry PRIVATE MADGINE_VERSION=\"${MADGINE_VERSION}\")
+
+if (NOT EMSCRIPTEN)	
 	target_link_libraries(Sentry PRIVATE sentry::sentry)
 else()
-	target_link_libraries(Sentry INTERFACE "--pre-js ${CMAKE_CURRENT_SOURCE_DIR}/js/header.js")
+	configure_file(js/header.js.in js/header.js @ONLY)
+	target_link_libraries(Sentry INTERFACE "--pre-js ${CMAKE_CURRENT_BINARY_DIR}/js/header.js")
 endif()
 
 set(sources)
