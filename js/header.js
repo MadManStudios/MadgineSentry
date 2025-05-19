@@ -44,6 +44,7 @@ function getModuleInfo(module) {
 function registerModule(module, url) {
     const { buildId, debugFile } = getModuleInfo(module);
     if (buildId) {
+        console.log("Build ID: " + buildId);
         const oldIdx = getImage(url);
         if (oldIdx >= 0) {
             IMAGES.splice(oldIdx, 1);
@@ -88,14 +89,14 @@ function getImage(url) {
 }
 
 function patchWebAssembly() {
-    if ('instantiate' in WebAssembly) {
-        const origInstantiate = WebAssembly.instantiate;
-        WebAssembly.instantiate = function instantiate(
+    if ('instantiateStreaming' in WebAssembly) {
+        const origInstantiateStreaming = WebAssembly.instantiateStreaming;
+        WebAssembly.instantiateStreaming = function instantiateStreaming(
             response,
             importObject,
         ) {
             return Promise.resolve(response).then(response => {
-                return origInstantiate(response, importObject).then(rv => {
+                return origInstantiateStreaming(response, importObject).then(rv => {
                     if (response.url) {
                         registerModule(rv.module, response.url);
                     }
@@ -122,13 +123,11 @@ function patchWebAssembly() {
     }
 }
 
+patchWebAssembly();
 
 const INTEGRATION_NAME = "Wasm"
     , _wasmIntegration = () => ({
         name: "Wasm",
-        setupOnce() {
-            patchWebAssembly()
-        },
         processEvent(e) {
             let t = !1;
             return e.exception?.values && e.exception.values.forEach((e => {
