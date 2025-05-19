@@ -8,6 +8,8 @@
 
 #if !EMSCRIPTEN
 #include <sentry.h>
+#else
+#include <emscripten.h>
 #endif
 
 UNIQUECOMPONENT(Engine::Sentry)
@@ -53,6 +55,8 @@ void Engine::Sentry::sendMessage(std::string_view message)
 
 	sentry_capture_event(event);
 #else
-	throw 0;
+	EM_ASM(
+		Module.sentry_capture_event(UTF8ToString($0)), message.data()
+	);
 #endif
 }
