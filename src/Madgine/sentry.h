@@ -18,5 +18,3 @@ namespace Engine {
     };
 
 }
-
-REGISTER_TYPE(Engine::Sentry)
