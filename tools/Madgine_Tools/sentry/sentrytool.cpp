@@ -45,7 +45,7 @@ namespace Tools {
 
     Dialog<std::string> SentryTool::feedbackDialog()
     {
-        DialogSettings &settings = co_await get_settings;
+        DialogSettings &settings = co_await get_dialog_settings;
 
         settings.acceptText = "Send";
         settings.declineText = "Cancel";
