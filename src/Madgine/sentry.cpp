@@ -36,7 +36,7 @@ Engine::Sentry::Sentry(Root::Root& root)
 	// https://docs.sentry.io/platforms/native/configuration/options/#database-path
 	sentry_options_set_database_path(options, ".sentry-native");
 	sentry_options_set_release(options, "Madgine@" MADGINE_VERSION);
-	sentry_options_set_debug(options, 1);
+	sentry_options_set_debug(options, 0);
 	sentry_init(options);
 #endif
 }
