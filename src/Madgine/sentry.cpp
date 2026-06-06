@@ -4,7 +4,7 @@
 
 #include "Modules/uniquecomponent/uniquecomponentcollector.h"
 
-#include "Meta/keyvalue/metatable_impl.h"
+#include "Meta/reflect/metatable_impl.h"
 
 #if !EMSCRIPTEN
 #include <sentry.h>
@@ -26,8 +26,8 @@ namespace Engine {
 
 }
 
-Engine::Sentry::Sentry(Root::Root& root)
-	: Root::RootComponent<Sentry>(root)
+Engine::Sentry::Sentry(Core::Root& root)
+	: Core::RootComponent<Sentry>(root)
 {
 #if !EMSCRIPTEN
 	sentry_options_t* options = sentry_options_new();

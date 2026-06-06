@@ -5,9 +5,9 @@
 
 namespace Engine {
 
-    struct MADGINE_SENTRY_EXPORT Sentry : Root::RootComponent<Sentry> {
+    struct MADGINE_SENTRY_EXPORT Sentry : Core::RootComponent<Sentry> {
 
-        Sentry(Root::Root &root);
+        Sentry(Core::Root &root);
         ~Sentry();
 
         virtual std::string_view key() const override;
